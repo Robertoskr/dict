@@ -58,4 +58,22 @@ int main(){
         }
     }
     cout << "the most repeated word is: " << mostrepeated << " with " << best << endl;
+
+    //EXAMPLE 3
+    //Iterating over the array, like the for value, dict int dict;
+    dict<int, int> itertest(100);
+    for(int i = 0; i < 100; i++)
+        itertest.add(i, i-20);
+    DictListNode<int, int>* iter = itertest.nextNode();
+    while(iter != NULL){
+        cout << iter->value << endl;
+        iter = itertest.nextNode();
+    }
+    //when you finish a complete looop, the dict is ready for other loop,
+    //dont care!
+    iter = itertest.nextNode();
+    while(iter != NULL){
+        cout << iter->value << endl;
+        iter = itertest.nextNode();
+    }
 }
