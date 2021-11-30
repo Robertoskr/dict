@@ -17,16 +17,21 @@ class DictList{
         bool in(KEY key);
         void add(KEY key, VALUE value);
         VALUE get(KEY key);
+	    DictListNode<KEY, VALUE>* nextNode();
     private:
+	    bool hasNextNode(); //return if this list has more nodes for traversing;
         DictListNode<KEY, VALUE> *root;
         DictListNode<KEY, VALUE> *lastBuffer;
         int n;//the length this node;
+	    int _next_node_position;
+	    DictListNode<KEY, VALUE>* _next_node; //used for traversing in this list;
 template <typename Key, typename Value> friend class dict;
 };
 
 template<typename KEY, typename VALUE>
 DictList<KEY, VALUE>::DictList(){
     n = 0;
+    _next_node_position = 0;
 }
 
 template<typename KEY, typename VALUE>
@@ -57,4 +62,29 @@ void DictList<KEY, VALUE>::add(KEY key, VALUE value){
     newnode->next = root;
     root = newnode;
     n++;
+}
+
+/*
+    Basic operations related to the iteration in the dictionary
+*/
+
+template<typename KEY, typename VALUE>
+bool DictList<KEY, VALUE>::hasNextNode(){
+    if(_next_node_position == 0){
+        _next_node = root;
+        return true;
+    }
+	if(_next_node_position == n){
+        _next_node_position = 0;
+        return false;
+    }
+    return true;
+}
+
+template<typename KEY, typename VALUE>
+DictListNode<KEY, VALUE>* DictList<KEY, VALUE>::nextNode(){
+	DictListNode<KEY, VALUE> *result = _next_node;
+	_next_node = _next_node->next;
+	_next_node_position++;
+	return result;
 }

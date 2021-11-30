@@ -1,7 +1,8 @@
 d = {}
 i = 0
-while i < 100000:
+while i < 1000000:
     d[i] = i+1
     i += 1
 
-print(d[740])
+for key, value in d.items():
+    pass
